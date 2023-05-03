@@ -25,10 +25,18 @@
                 <!-- Small boxes (Stat box) -->
 
                 <div class="row ">
-                    <div class="col-12 my-3">
-                        <a href="{{route('admin.category.create')}}" class="btn btn-danger px-3">Add</a>
+
+                    <div class="col-12"><h4>Add Category</h4></div>
+                    <div class="col-12">
+                        <form action=""class="w-25">
+                            <div class="form-group">
+                                <label >Name</label>
+                                <input type="text" class="form-control"     placeholder="Category name">
+                            </div>
+                            <input type="submit"class="btn btn-primary px-3"value="Add">
+                        </form>
                     </div>
-                    <div class="col-12">Category</div>
+
                 </div>
                 <!-- /.row -->
                 <!-- Main row -->
