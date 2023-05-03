@@ -23,6 +23,9 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin'], function () {
    Route::group(['namespace' => 'Http'], function () {
         Route::get('/', Controllers\Admin\Main\IndexController::class);
     });
+    Route::group(['namespace' => 'Http','prefix'=>'categories'], function () {
+        Route::get('/', Controllers\Admin\Category\IndexController::class);
+    });
 });
 Auth::routes();
 
