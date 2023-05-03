@@ -24,7 +24,9 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin'], function () {
         Route::get('/', Controllers\Admin\Main\IndexController::class);
     });
     Route::group(['namespace' => 'Http','prefix'=>'categories'], function () {
-        Route::get('/', Controllers\Admin\Category\IndexController::class);
+        Route::get('/', Controllers\Admin\Category\IndexController::class)->name('admin.category.index');
+        Route::get('/create', Controllers\Admin\Category\CreateController::class)->name('admin.category.create');
+
     });
 });
 Auth::routes();
