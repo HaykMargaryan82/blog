@@ -28,10 +28,14 @@
 
                     <div class="col-12"><h4>Add Category</h4></div>
                     <div class="col-12">
-                        <form action=""class="w-25">
+                        <form action="{{route('admin.category.store')}}"method="post" class="w-25">
+                            @csrf
                             <div class="form-group">
                                 <label >Name</label>
-                                <input type="text" class="form-control"     placeholder="Category name">
+                                <input type="text" class="form-control" name="title"  placeholder="Category name">
+                                @error('title')
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
                             </div>
                             <input type="submit"class="btn btn-primary px-3"value="Add">
                         </form>

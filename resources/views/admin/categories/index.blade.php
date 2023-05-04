@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -28,7 +28,39 @@
                     <div class="col-12 my-3">
                         <a href="{{route('admin.category.create')}}" class="btn btn-danger px-3">Add</a>
                     </div>
-                    <div class="col-12">Category</div>
+
+                </div>
+                <div class="row ">
+
+                    <div class="col-5 mt-4">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Category name</th>
+
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    @foreach($categories as $category)
+                                    <tr>
+                                        <td>{{$category->id}}</td>
+                                        <td>{{$category->title}}</td>
+
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
                 </div>
                 <!-- /.row -->
                 <!-- Main row -->
