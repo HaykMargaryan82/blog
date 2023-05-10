@@ -30,6 +30,7 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin'], function () {
         Route::get('/{category}', Controllers\Admin\Category\ShowController::class)->name('admin.category.show');
         Route::get('/{category}/edit', Controllers\Admin\Category\EditController::class)->name('admin.category.edit');
         Route::patch('/{category}', Controllers\Admin\Category\UpdateController::class)->name('admin.category.update');
+        Route::delete('/{category}', Controllers\Admin\Category\DeleteController::class)->name('admin.category.delete');
     });
 });
 Auth::routes();
