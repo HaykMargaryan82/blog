@@ -5,8 +5,19 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">{{$category->title}}</h1>
+                    <div class="col-sm-6 d-flex">
+                        <div><h1 class="mx-3">{{$category->title}}</h1></div>
+                        <div class="pt-1 d-flex">
+                            <a href="{{route('admin.category.edit',$category->id)}}"><i class="fas fa-pen"></i></a>
+                            <form action="{{route('admin.category.delete',$category->id)}}"method="post"class="px-2">
+                                @csrf
+                                @method('delete')
+                                <button type="submit"class="border-0 bg-transparent" >
+                                    <i class=" text-danger  fas fa-trash"role="button"></i>
+                                </button>
+
+                            </form>
+                        </div>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

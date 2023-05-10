@@ -28,8 +28,9 @@
 
                     <div class="col-12"><h4>Edit Category</h4></div>
                     <div class="col-12">
-                        <form action="#"method="post" class="w-25">
+                        <form action="{{route('admin.category.update',$category->id)}}"method="post" class="w-25">
                             @csrf
+                            @method('Patch')
                             <div class="form-group">
                                 <label >Name</label>
                                 <input type="text" class="form-control" name="title"  placeholder="Category name"value="{{$category->title}}">

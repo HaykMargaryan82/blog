@@ -43,19 +43,32 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Category name</th>
-                                        <th colspan="2">Action</th>
+                                        <th colspan="3">Action</th>
                                     </tr>
 
                                     </thead>
                                     <tbody>
                                     @foreach($categories as $category)
-                                    <tr>
-                                        <td>{{$category->id}}</td>
-                                        <td>{{$category->title}}</td>
-                                        <td><a href="{{route('admin.category.show',$category->id)}}"><i class="far fa-eye"></i></a></td>
-                                        <td><a href="{{route('admin.category.edit',$category->id)}}"><i class="fas fa-pen"></i></a></td>
+                                        <tr>
+                                            <td>{{$category->id}}</td>
+                                            <td>{{$category->title}}</td>
+                                            <td><a href="{{route('admin.category.show',$category->id)}}"><i
+                                                        class="far fa-eye"></i></a></td>
+                                            <td><a href="{{route('admin.category.edit',$category->id)}}"><i
+                                                        class="fas fa-pen"></i></a></td>
+                                            <td>
+                                                <form action="{{route('admin.category.delete',$category->id)}}"method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"class="border-0 bg-white" >
+                                                        <i class=" text-danger  fas fa-trash"role="button"></i>
+                                                    </button>
 
-                                    </tr>
+                                                </form>
+
+                                            </td>
+
+                                        </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
