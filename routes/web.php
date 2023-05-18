@@ -23,6 +23,15 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin'], function () {
    Route::group(['namespace' => 'Http'], function () {
         Route::get('/', Controllers\Admin\Main\IndexController::class);
     });
+    Route::group(['namespace' => 'Http','prefix'=>'posts'], function () {
+        Route::get('/', Controllers\Admin\Post\IndexController::class)->name('admin.post.index');
+        Route::get('/create', Controllers\Admin\Post\CreateController::class)->name('admin.post.create');
+        Route::post('/', Controllers\Admin\Post\StoreController::class)->name('admin.post.store');
+        Route::get('/{post}', Controllers\Admin\Post\ShowController::class)->name('admin.post.show');
+        Route::get('/{post}/edit', Controllers\Admin\Post\EditController::class)->name('admin.post.edit');
+        Route::patch('/{post}', Controllers\Admin\Post\UpdateController::class)->name('admin.post.update');
+        Route::delete('/{post}', Controllers\Admin\Post\DeleteController::class)->name('admin.post.delete');
+    });
     Route::group(['namespace' => 'Http','prefix'=>'category'], function () {
         Route::get('/', Controllers\Admin\Category\IndexController::class)->name('admin.category.index');
         Route::get('/create', Controllers\Admin\Category\CreateController::class)->name('admin.category.create');
