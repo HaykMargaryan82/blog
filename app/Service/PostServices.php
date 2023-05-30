@@ -21,7 +21,7 @@ class PostServices
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollback();
-
+            dd($exception->getMessage());
             abort(500);
         }
     }
