@@ -18,10 +18,20 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\\Http\\Controllers\\Main'], function () {
     Route::get('/', IndexController::class);
 });
-
-Route::group(['namespace' => 'App', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'App', 'prefix' => 'personal','middleware' => ['auth','verified']], function () {
+    Route::group(['namespace' => 'Http','prefix' => 'main'], function () {
+        Route::get('/', Controllers\Personal\Main\IndexController::class)->name('personal.main.index');
+    });
+    Route::group(['namespace' => 'Http','prefix' => 'liked'], function () {
+        Route::get('/', Controllers\Personal\Liked\IndexController::class)->name('personal.liked.index');
+    });
+    Route::group(['namespace' => 'Http','prefix' => 'comments'], function () {
+        Route::get('/', Controllers\Personal\Comment\IndexController::class)->name('personal.comment.index');
+    });
+});
+Route::group(['namespace' => 'App', 'prefix' => 'admin','middleware' => ['auth','admin','verified']], function () {
    Route::group(['namespace' => 'Http'], function () {
-        Route::get('/', Controllers\Admin\Main\IndexController::class);
+        Route::get('/', Controllers\Admin\Main\IndexController::class)->name('admin.main.index');
     });
     Route::group(['namespace' => 'Http','prefix'=>'posts'], function () {
         Route::get('/', Controllers\Admin\Post\IndexController::class)->name('admin.post.index');
@@ -58,8 +68,9 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin'], function () {
         Route::get('/{user}/edit', Controllers\Admin\User\EditController::class)->name('admin.user.edit');
         Route::patch('/{user}', Controllers\Admin\User\UpdateController::class)->name('admin.user.update');
         Route::delete('/{user}', Controllers\Admin\User\DeleteController::class)->name('admin.user.delete');
+
     });
 });
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
