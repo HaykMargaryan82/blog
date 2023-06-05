@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('personal.layouts.main')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,12 +28,12 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{$data['userscount']}}</h3>
+                            <h3>10</h3>
 
-                            <p>Users</p>
+                            <p>Favorite posts</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-heart"></i>
                         </div>
                         <a href="{{route('admin.user.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -43,46 +43,20 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3> {{$data['postscount']}}</h3>
+                            <h3> 10</h3>
 
-                            <p>Post</p>
+                            <p>Comments</p>
                         </div>
                         <div class="icon">
-                            <i class="far fa-clipboard"></i>
+                            <i class="far fa-comment"></i>
                         </div>
                         <a href="{{route('admin.post.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{$data['categoriescount']}}</h3>
 
-                            <p>Category</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-stream"></i>
-                        </div>
-                        <a href="{{route('admin.category.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{$data['tagscount']}}</h3>
 
-                            <p>Tags</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-tags"></i>
-                        </div>
-                        <a href="{{route('admin.tag.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
                 <!-- ./col -->
             </div>
             <!-- /.row -->
