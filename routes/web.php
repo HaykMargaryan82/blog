@@ -1,7 +1,6 @@
 <?php
 
 
-use App\Http\Controllers\Main\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,26 +13,42 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/post/{post_id}', App\Http\Controllers\Post\ShowController::class)->where('post_id', '[0-9]+')->name('post.show');
+Route::post('/post/comments/{post}', App\Http\Controllers\Post\Comment\StoreController::class)->where('post', '[0-9]+')->name('post.comment.store');
+Route::post('/post/likes/{post}', App\Http\Controllers\Post\Like\LikeStoreController::class)->where('post', '[0-9]+')->name('post.like.store');
 
-Route::group(['namespace' => 'App\\Http\\Controllers\\Main'], function () {
-    Route::get('/', IndexController::class);
+Route::group(['namespace' => 'App\\Http\\Controllers\\Main', 'prefix' => 'main'], function () {
+    Route::get('/', IndexController::class)->name('main.index');
 });
-Route::group(['namespace' => 'App', 'prefix' => 'personal','middleware' => ['auth','verified']], function () {
-    Route::group(['namespace' => 'Http','prefix' => 'main'], function () {
+
+Route::group(['namespace' => 'App\\Http\\Controllers\\Post', 'prefix' => 'post'], function () {
+    Route::get('/', IndexController::class)->name('post.index');
+   // Route::group(['namespace' => 'Comment', 'prefix' => '{$post}/comments'], function () {
+    //    Route::post('/',LikeStoreController::class)->name('post.comment.store');
+    //});
+});
+
+Route::group(['namespace' => 'App', 'prefix' => 'personal', 'middleware' => ['auth', 'verified']], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'main'], function () {
         Route::get('/', Controllers\Personal\Main\IndexController::class)->name('personal.main.index');
     });
-    Route::group(['namespace' => 'Http','prefix' => 'liked'], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'liked'], function () {
         Route::get('/', Controllers\Personal\Liked\IndexController::class)->name('personal.liked.index');
+        Route::delete('/{post}', Controllers\Personal\Liked\DeleteController::class)->name('personal.liked.delete');
     });
-    Route::group(['namespace' => 'Http','prefix' => 'comments'], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'comments'], function () {
         Route::get('/', Controllers\Personal\Comment\IndexController::class)->name('personal.comment.index');
+        Route::get('/{comment}/edit', Controllers\Personal\Comment\EditController::class)->name('personal.comment.edit');
+        Route::patch('/{comment}', Controllers\Personal\Comment\UpdateController::class)->name('personal.comment.update');
+        Route::delete('/{comment}', Controllers\Personal\Comment\DeleteController::class)->name('personal.comment.delete');
     });
+
 });
-Route::group(['namespace' => 'App', 'prefix' => 'admin','middleware' => ['auth','admin','verified']], function () {
-   Route::group(['namespace' => 'Http'], function () {
+Route::group(['namespace' => 'App', 'prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function () {
+    Route::group(['namespace' => 'Http'], function () {
         Route::get('/', Controllers\Admin\Main\IndexController::class)->name('admin.main.index');
     });
-    Route::group(['namespace' => 'Http','prefix'=>'posts'], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'posts'], function () {
         Route::get('/', Controllers\Admin\Post\IndexController::class)->name('admin.post.index');
         Route::get('/create', Controllers\Admin\Post\CreateController::class)->name('admin.post.create');
         Route::post('/', Controllers\Admin\Post\StoreController::class)->name('admin.post.store');
@@ -42,7 +57,7 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin','middleware' => ['auth',
         Route::patch('/{post}', Controllers\Admin\Post\UpdateController::class)->name('admin.post.update');
         Route::delete('/{post}', Controllers\Admin\Post\DeleteController::class)->name('admin.post.delete');
     });
-    Route::group(['namespace' => 'Http','prefix'=>'category'], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'category'], function () {
         Route::get('/', Controllers\Admin\Category\IndexController::class)->name('admin.category.index');
         Route::get('/create', Controllers\Admin\Category\CreateController::class)->name('admin.category.create');
         Route::post('/', Controllers\Admin\Category\StoreController::class)->name('admin.category.store');
@@ -51,7 +66,7 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin','middleware' => ['auth',
         Route::patch('/{category}', Controllers\Admin\Category\UpdateController::class)->name('admin.category.update');
         Route::delete('/{category}', Controllers\Admin\Category\DeleteController::class)->name('admin.category.delete');
     });
-    Route::group(['namespace' => 'Http','prefix'=>'tags'], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'tags'], function () {
         Route::get('/', Controllers\Admin\Tag\IndexController::class)->name('admin.tag.index');
         Route::get('/create', Controllers\Admin\Tag\CreateController::class)->name('admin.tag.create');
         Route::post('/', Controllers\Admin\Tag\StoreController::class)->name('admin.tag.store');
@@ -60,7 +75,7 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin','middleware' => ['auth',
         Route::patch('/{tag}', Controllers\Admin\Tag\UpdateController::class)->name('admin.tag.update');
         Route::delete('/{tag}', Controllers\Admin\Tag\DeleteController::class)->name('admin.tag.delete');
     });
-    Route::group(['namespace' => 'Http','prefix'=>'users'], function () {
+    Route::group(['namespace' => 'Http', 'prefix' => 'users'], function () {
         Route::get('/', Controllers\Admin\User\IndexController::class)->name('admin.user.index');
         Route::get('/create', Controllers\Admin\User\CreateController::class)->name('admin.user.create');
         Route::post('/', Controllers\Admin\User\StoreController::class)->name('admin.user.store');
@@ -71,6 +86,6 @@ Route::group(['namespace' => 'App', 'prefix' => 'admin','middleware' => ['auth',
 
     });
 });
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
